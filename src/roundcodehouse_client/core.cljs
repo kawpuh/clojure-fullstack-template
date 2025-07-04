@@ -1,9 +1,9 @@
-(ns shufflefast-client.core
+(ns roundcodehouse-client.core
   (:require
    [reagent.dom :as rdom]
    [re-frame.core :as rf]
-   [shufflefast-client.views :as views]
-   [shufflefast-client.config :as config]))
+   [roundcodehouse-client.views :as views]
+   [roundcodehouse-client.config :as config]))
 
 (rf/reg-fx :call
   (fn [[f & args]]

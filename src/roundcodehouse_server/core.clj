@@ -1,8 +1,8 @@
-(ns shufflefast-server.core
+(ns roundcodehouse-server.core
   (:require
    [clojure.tools.cli :as cli]
    [org.httpkit.server :as http]
-   [shufflefast-server.router :as router]
+   [roundcodehouse-server.router :as router]
    [taoensso.telemere :as t]))
 
 (defn parse-port [port-arg]

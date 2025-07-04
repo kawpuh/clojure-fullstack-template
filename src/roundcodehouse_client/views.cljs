@@ -1,6 +1,6 @@
-(ns shufflefast-client.views
+(ns roundcodehouse-client.views
   (:require
-   [shufflefast-client.card :refer [playing-card]]))
+   [roundcodehouse-client.card :refer [playing-card]]))
 
 (defn main-panel []
   [:div {:class "flex flex-wrap gap-4 p-4 bg-green-700"} ; Simulate a table

@@ -1,4 +1,4 @@
-(ns shufflefast-client.card
+(ns roundcodehouse-client.card
   (:require
    [reagent.core :as r]
    [clojure.string :as str]))

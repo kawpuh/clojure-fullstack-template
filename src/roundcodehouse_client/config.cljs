@@ -1,4 +1,4 @@
-(ns shufflefast-client.config)
+(ns roundcodehouse-client.config)
 
 (def debug?
   ^boolean goog.DEBUG)

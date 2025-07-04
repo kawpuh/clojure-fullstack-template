@@ -1,10 +1,10 @@
-(ns shufflefast-server.router
+(ns roundcodehouse-server.router
   (:require
    [reitit.ring :as ring]
    [reitit.ring.middleware.dev]
    [ring.util.response :as ring-response]
    [ring.middleware.reload :refer [wrap-reload]]
-   [shufflefast-server.config :as config]))
+   [roundcodehouse-server.config :as config]))
 
 (defn create-app [& {:as opts}]
   (ring/ring-handler
