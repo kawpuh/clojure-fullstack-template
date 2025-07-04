@@ -156,6 +156,72 @@
       {:text (str before after)
        :cursor-pos start})))
 
+(defn delete-paren-pair
+  "Delete a matching pair of parentheses"
+  [text open-pos close-pos]
+  (let [before (subs text 0 open-pos)
+        middle (subs text (inc open-pos) close-pos)
+        after (subs text (inc close-pos))]
+    {:text (str before middle after)
+     :cursor-pos open-pos}))
+
+(defn handle-delete-paren
+  "Handle deletion of parentheses while maintaining structure"
+  [text cursor-pos delete-forward?]
+  (let [target-pos (if delete-forward? cursor-pos (dec cursor-pos))]
+    (when (and (>= target-pos 0) (< target-pos (count text)))
+      (let [ch (nth text target-pos)]
+        (cond
+          ;; Deleting an opening paren
+          (= ch \()
+          (when-let [matching-pos (find-matching-paren text target-pos)]
+            (delete-paren-pair text target-pos matching-pos))
+
+          ;; Deleting a closing paren
+          (= ch \))
+          (when-let [matching-pos (find-matching-open-paren text target-pos)]
+            (delete-paren-pair text matching-pos target-pos))
+
+          :else nil)))))
+
+(defn handle-backspace
+  "Handle backspace key with paredit behavior"
+  [text cursor-pos]
+  (cond
+    ;; At beginning of text
+    (<= cursor-pos 0)
+    nil
+
+    ;; Check if we're deleting a paren
+    :else
+    (let [prev-char (nth text (dec cursor-pos))]
+      (if (contains? #{\( \)} prev-char)
+        (handle-delete-paren text cursor-pos false)
+        ;; Normal backspace
+        (let [before (subs text 0 (dec cursor-pos))
+              after (subs text cursor-pos)]
+          {:text (str before after)
+           :cursor-pos (dec cursor-pos)})))))
+
+(defn handle-delete
+  "Handle delete key with paredit behavior"
+  [text cursor-pos]
+  (cond
+    ;; At end of text
+    (>= cursor-pos (count text))
+    nil
+
+    ;; Check if we're deleting a paren
+    :else
+    (let [current-char (nth text cursor-pos)]
+      (if (contains? #{\( \)} current-char)
+        (handle-delete-paren text cursor-pos true)
+        ;; Normal delete
+        (let [before (subs text 0 cursor-pos)
+              after (subs text (inc cursor-pos))]
+          {:text (str before after)
+           :cursor-pos cursor-pos})))))
+
 (defn move-to-next-sexp
   "Move cursor to the beginning of the next S-expression"
   [text cursor-pos]
@@ -220,5 +286,13 @@
       ;; Skip over closing paren if it's the next character
       (and (= key ")") (< cursor-pos (count text)) (= (nth text cursor-pos) \)))
       {:cursor-pos (inc cursor-pos)}
+
+      ;; Handle backspace
+      (= key "Backspace")
+      (handle-backspace text cursor-pos)
+
+      ;; Handle delete
+      (= key "Delete")
+      (handle-delete text cursor-pos)
 
       :else nil)))
