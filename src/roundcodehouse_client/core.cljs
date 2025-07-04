@@ -3,7 +3,8 @@
    [reagent.dom :as rdom]
    [re-frame.core :as rf]
    [roundcodehouse-client.views :as views]
-   [roundcodehouse-client.config :as config]))
+   [roundcodehouse-client.config :as config]
+   [roundcodehouse-lang.core :as scheme]))
 
 (rf/reg-fx :call
   (fn [[f & args]]
@@ -39,4 +40,11 @@
 
 (defn init []
   (dev-setup)
-  (mount-root))
+  (mount-root)
+  
+  ;; Initialize Scheme interpreter
+  (println "Scheme interpreter loaded!")
+  (set! js/window.schemeEval scheme/scheme-eval-string)
+  (set! js/window.schemeRepl scheme/scheme-repl)
+  (js/console.log "Use schemeEval(\"(+ 1 2)\") to evaluate Scheme expressions")
+  (js/console.log "Use schemeRepl() to start the REPL"))
