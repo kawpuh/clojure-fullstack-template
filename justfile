@@ -5,9 +5,9 @@ watch-css:
 dev-server:
     clojure -M -m roundcodehouse-server.core -p 8280 -d
 tmux:
-    tmux new-session \; send-keys 'just dev-server' \; \
-      split-window -v \; send-keys 'just watch-js' \; \
-      split-window -v \; send-keys 'just watch-css' \; \
+    tmux new-session \; send-keys 'just dev-server' C-m \; \
+      split-window -v \; send-keys 'just watch-js' C-m \; \
+      split-window -v \; send-keys 'just watch-css' C-m \; \
       select-pane -t 0 \; select-layout even-vertical \; \
       rename-session 'roundcodehouse' \; \
       attach
