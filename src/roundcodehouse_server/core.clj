@@ -2,6 +2,7 @@
   (:require
    [clojure.tools.cli :as cli]
    [org.httpkit.server :as http]
+   [roundcodehouse-server.config :as config]
    [roundcodehouse-server.router :as router]
    [taoensso.telemere :as t]))
 
@@ -15,9 +16,7 @@
   [["-p" "--port PORT" "Port number"
     :default 8070
     :parse-fn parse-port
-    :validate [#(< 0 % 65536) "Must be a number between 0 and 65536"]]
-   ["-d" "--debug" "Debug mode"
-    :default false]])
+    :validate [#(< 0 % 65536) "Must be a number between 0 and 65536"]]])
 
 (defn -main [& args]
   (let [{:keys [options errors]} (cli/parse-opts args cli-options)]
@@ -29,8 +28,8 @@
     (t/log! {:level :info
              :id :announce-main-options
              :data options})
-    (when (:debug options)
+    (when config/debug?
       (t/set-min-level! :debug))
     (http/run-server
-     (router/create-app (select-keys options [:debug]))
+     (router/create-app)
      {:port (:port options)})))

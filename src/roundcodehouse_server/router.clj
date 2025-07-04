@@ -6,16 +6,16 @@
    [ring.middleware.reload :refer [wrap-reload]]
    [roundcodehouse-server.config :as config]))
 
-(defn create-app [& {:as opts}]
+(defn create-app []
   (ring/ring-handler
    (ring/router
     [["/" {:get {:middleware []
                  :handler (fn [req] (ring-response/file-response "public/resources/index.html"))}}]
      ["/resources/*" {:get {:handler (ring/create-file-handler {:root "public/resources"})}}]
-     {:reitit.middleware/transform (if (and (:debug opts) config/middleware-diff-logging)
+     {:reitit.middleware/transform (if (and config/debug? config/middleware-diff-logging)
                                      reitit.ring.middleware.dev/print-request-diffs
                                      identity)
-      :data {:middleware [(when (:debug opts) {:name :debug-reload-middleware
+      :data {:middleware [(when config/debug? {:name :debug-reload-middleware
                                                :wrap wrap-reload})]}}])
    (ring/routes
     (ring/redirect-trailing-slash-handler)

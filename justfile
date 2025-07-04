@@ -3,7 +3,7 @@ watch-js:
 watch-css:
     npx @tailwindcss/cli -i src/tailwind.css -o public/resources/css/tailwind.css --watch -v
 dev-server:
-    clojure -M -m roundcodehouse-server.core -p 8280 -d
+    DEBUG=1 clojure -M -m roundcodehouse-server.core -p 8280
 tmux:
     tmux new-session \; send-keys 'just dev-server' C-m \; \
       split-window -v \; send-keys 'just watch-js' C-m \; \
