@@ -147,9 +147,18 @@
     (scheme-eval body final-env)))
 
 (defn- scheme-define [name value env]
-  (let [val (scheme-eval value env)]
-    (swap! scheme-env assoc name val)
-    name))
+  (if (seq? name)
+    ;; Function definition: (define (name params...) body)
+    (let [func-name (first name)
+          params (rest name)
+          lambda-expr (list 'lambda params value)
+          val (scheme-eval lambda-expr env)]
+      (swap! scheme-env assoc func-name val)
+      func-name)
+    ;; Variable definition: (define name value)
+    (let [val (scheme-eval value env)]
+      (swap! scheme-env assoc name val)
+      name)))
 
 (defn- scheme-set! [name value env]
   (let [val (scheme-eval value env)]
@@ -161,7 +170,7 @@
 (defn- scheme-lambda [params body env]
   (fn [& args]
     (let [arg-bindings (zipmap params args)
-          new-env (merge env arg-bindings)]
+          new-env (merge @scheme-env env arg-bindings)]
       (scheme-eval body new-env))))
 
 (defn- scheme-macro [params body env]
