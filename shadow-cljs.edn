@@ -1,0 +1,15 @@
+{:nrepl {:port 8777}
+ :deps {:aliases [:cljs-deps]}
+ :builds
+ {:app
+  {:target     :browser
+   :output-dir "public/resources/js/compiled"
+   :asset-path "/resources/js/compiled"
+   :modules
+   {:app {:init-fn shufflefast-client.core/init}}
+   :devtools
+   {:preloads [re-frisk-remote.preload]}
+   :dev
+   {:compiler-options
+    {:closure-defines
+     {}}}}}}

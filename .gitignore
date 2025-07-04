@@ -1,0 +1,19 @@
+/out/
+/public/resources/js/compiled/
+/public/resources/css
+/target/
+/*-init.clj
+/*.log
+
+# Leiningen
+.lein-*
+.nrepl-port
+
+# Node.js dependencies
+/node_modules/
+
+# shadow-cljs cache, port files
+.shadow-cljs/
+.clj-kondo/
+.cpcache/
+.lsp/

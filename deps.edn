@@ -1,0 +1,23 @@
+{:deps {metosin/reitit {:mvn/version "0.7.0-alpha5"}
+        metosin/ring-http-response {:mvn/version "0.9.5"}
+        org.clojure/tools.cli {:mvn/version "1.1.230"}
+        hiccup/hiccup {:mvn/version "2.0.0-RC1"}
+        http-kit/http-kit {:mvn/version "2.8.0"}
+        buddy/buddy {:mvn/version "2.0.0"}
+        ring/ring-devel {:mvn/version "1.11.0"}
+        ring/ring-headers {:mvn/version "0.4.0"}
+        com.taoensso/carmine {:mvn/version "3.4.1"}
+        com.taoensso/telemere {:mvn/version "1.0.0"}}
+ :paths ["src/"]
+ :aliases {:dev {:extra-paths ["dev"]}
+           :cljs-deps {:paths ["src"]
+                       :compiler {:closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}}
+                       :deps {org.clojure/clojurescript {:mvn/version "1.11.60"}
+                              thheller/shadow-cljs {:mvn/version "2.26.2"}
+                              reagent/reagent {:mvn/version "1.2.0"}
+                              re-frame/re-frame {:mvn/version "1.4.2"}
+                              day8.re-frame/http-fx {:mvn/version "0.2.4"}
+                              metosin/malli {:mvn/version "0.17.0"}
+                              binaryage/devtools {:mvn/version "1.0.7"}
+                              day8.re-frame/tracing {:mvn/version "0.6.2"}
+                              re-frisk-remote/re-frisk-remote {:mvn/version "1.6.0"}}}}}
