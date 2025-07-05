@@ -4,12 +4,50 @@
             [roundcodehouse-lang.core :as scheme]
             [roundcodehouse-client.paredit :as paredit]))
 
+(defn make-apply-paredit-fn [input cursor-pos input-ref]
+  (fn [action-fn & args]
+    (let [result (apply action-fn @input @cursor-pos args)]
+      (cond
+        ;; Handle map results (text modifications)
+        (map? result)
+        (do
+          (reset! input (:text result))
+          (when (:cursor-pos result)
+            (reset! cursor-pos (:cursor-pos result)))
+          (js/setTimeout
+            (fn []
+              (when @input-ref
+                (.focus @input-ref)
+                (let [pos (or (:cursor-pos result) @cursor-pos)]
+                  (set! (.-selectionStart @input-ref) pos)
+                  (set! (.-selectionEnd @input-ref) pos))))
+            0))
+        ;; Handle direct position results (cursor movements)
+        (number? result)
+        (do
+          (reset! cursor-pos result)
+          (js/setTimeout
+            (fn []
+              (when @input-ref
+                (.focus @input-ref)
+                (set! (.-selectionStart @input-ref) result)
+                (set! (.-selectionEnd @input-ref) result)))
+            0))
+        ;; Always focus even if no result
+        :else
+        (js/setTimeout
+          (fn []
+            (when @input-ref
+              (.focus @input-ref)))
+          0)))))
+
 (defn scheme-repl-component []
   (let [input (r/atom "")
         output (r/atom "Welcome to Scheme REPL! Try: (+ 1 2)\n")
         history (r/atom [])
         cursor-pos (r/atom 0)
-        input-ref (r/atom nil)]
+        input-ref (r/atom nil)
+        apply-paredit (make-apply-paredit-fn input cursor-pos input-ref)]
     (fn []
       [:div {:style {:font-family "monospace"
                      :max-width "800px"
@@ -26,6 +64,69 @@
                       :white-space "pre-wrap"
                       :overflow-y "auto"}}
         @output]
+       ;; Paredit button bar for mobile
+       [:div {:style {:display "flex"
+                      :flex-wrap "wrap"
+                      :gap "5px"
+                      :margin-bottom "10px"
+                      :padding "8px"
+                      :background "#f9f9f9"
+                      :border-radius "3px"
+                      :border "1px solid #ddd"}}
+        [:button {:on-click #(apply-paredit paredit/wrap-with-parens nil nil)
+                  :style {:padding "4px 8px"
+                          :background "#4CAF50"
+                          :color "white"
+                          :border "none"
+                          :border-radius "3px"
+                          :cursor "pointer"
+                          :font-size "12px"}}
+         "()"]
+        [:button {:on-click #(apply-paredit paredit/slurp-forward)
+                  :style {:padding "4px 8px"
+                          :background "#2196F3"
+                          :color "white"
+                          :border "none"
+                          :border-radius "3px"
+                          :cursor "pointer"
+                          :font-size "12px"}}
+         "→)"]
+        [:button {:on-click #(apply-paredit paredit/barf-forward)
+                  :style {:padding "4px 8px"
+                          :background "#FF9800"
+                          :color "white"
+                          :border "none"
+                          :border-radius "3px"
+                          :cursor "pointer"
+                          :font-size "12px"}}
+         "(←"]
+        [:button {:on-click #(apply-paredit paredit/delete-sexp)
+                  :style {:padding "4px 8px"
+                          :background "#f44336"
+                          :color "white"
+                          :border "none"
+                          :border-radius "3px"
+                          :cursor "pointer"
+                          :font-size "12px"}}
+         "Del"]
+        [:button {:on-click #(apply-paredit paredit/move-to-prev-sexp)
+                  :style {:padding "4px 8px"
+                          :background "#9C27B0"
+                          :color "white"
+                          :border "none"
+                          :border-radius "3px"
+                          :cursor "pointer"
+                          :font-size "12px"}}
+         "←"]
+        [:button {:on-click #(apply-paredit paredit/move-to-next-sexp)
+                  :style {:padding "4px 8px"
+                          :background "#9C27B0"
+                          :color "white"
+                          :border "none"
+                          :border-radius "3px"
+                          :cursor "pointer"
+                          :font-size "12px"}}
+         "→"]]
        [:div {:style {:display "flex"
                       :gap "10px"}}
         [:input {:type "text"
