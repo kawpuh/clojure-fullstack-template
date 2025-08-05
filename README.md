@@ -3,6 +3,8 @@
 An opinionated template for fullstack clojure with re-frame on the frontend and http-kit/reitit on the backend.
 A bit of a quirky shadow-cljs setup with deps.edn for dependencies, and dev server disabled in favor of using our real backend in development.
 
+Try `fd -t f -x sed -i 's/projectname/NEWNAME/g' {}` to setup the project with your desired name.
+
 ## Development
 
 ### Editor/IDE
