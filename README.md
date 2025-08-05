@@ -15,7 +15,7 @@ Use your preferred editor or IDE that supports Clojure/ClojureScript development
 1. Install [JDK 8 or later](https://openjdk.java.net/install/) (Java Development Kit)
 2. Install [Node.js](https://nodejs.org/) (JavaScript runtime environment) which should include
    [NPM](https://docs.npmjs.com/cli/npm) or if your Node.js installation does not include NPM also install it.
-5. Clone this repo and open a terminal in the `roundcodehouse` project root directory
+5. Clone this repo and open a terminal in the `projectname` project root directory
 
 ### Browser Setup
 
@@ -122,14 +122,14 @@ npx shadow-cljs <action> app
 ```
 ### Debug Logging
 
-The `debug?` variable in [`config.cljs`](src/cljs/roundcodehouse/config.cljs) defaults to `true` in
+The `debug?` variable in [`config.cljs`](src/cljs/projectname/config.cljs) defaults to `true` in
 [`dev`](#running-the-app) builds, and `false` in [`prod`](#production) builds.
 
 Use `debug?` for logging or other tasks that should run only on `dev` builds:
 
 ```clj
-(ns roundcodehouse.example
-  (:require [roundcodehouse.config :as config])
+(ns projectname.example
+  (:require [projectname.config :as config])
 
 (when config/debug?
   (println "This message will appear in the browser console only on dev builds."))

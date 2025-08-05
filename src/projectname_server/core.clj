@@ -1,9 +1,9 @@
-(ns roundcodehouse-server.core
+(ns projectname-server.core
   (:require
    [clojure.tools.cli :as cli]
    [org.httpkit.server :as http]
-   [roundcodehouse-server.config :as config]
-   [roundcodehouse-server.router :as router]
+   [projectname-server.config :as config]
+   [projectname-server.router :as router]
    [taoensso.telemere :as t]))
 
 (defn parse-port [port-arg]

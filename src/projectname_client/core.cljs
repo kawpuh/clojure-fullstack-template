@@ -1,10 +1,10 @@
-(ns roundcodehouse-client.core
+(ns projectname-client.core
   (:require
    [reagent.dom :as rdom]
    [re-frame.core :as rf]
-   [roundcodehouse-client.views :as views]
-   [roundcodehouse-client.config :as config]
-   [roundcodehouse-lang.core :as scheme]))
+   [projectname-client.views :as views]
+   [projectname-client.config :as config]
+   [projectname-lang.core :as scheme]))
 
 (rf/reg-fx :call
            (fn [[f & args]]

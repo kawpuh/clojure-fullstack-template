@@ -6,7 +6,7 @@
    :output-dir "public/resources/js/compiled"
    :asset-path "/resources/js/compiled"
    :modules
-   {:app {:init-fn roundcodehouse-client.core/init}}
+   {:app {:init-fn projectname-client.core/init}}
    :devtools
    {:preloads [re-frisk-remote.preload]}
    :dev

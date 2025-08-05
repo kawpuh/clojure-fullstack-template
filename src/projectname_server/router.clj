@@ -1,10 +1,10 @@
-(ns roundcodehouse-server.router
+(ns projectname-server.router
   (:require
    [reitit.ring :as ring]
    [reitit.ring.middleware.dev]
    [ring.util.response :as ring-response]
    [ring.middleware.reload :refer [wrap-reload]]
-   [roundcodehouse-server.config :as config]))
+   [projectname-server.config :as config]))
 
 (defn create-app []
   (ring/ring-handler
