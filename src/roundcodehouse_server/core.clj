@@ -32,4 +32,5 @@
       (t/set-min-level! :debug))
     (http/run-server
      (router/create-app)
-     {:port (:port options)})))
+     {:port (:port options)
+      :ip "127.0.0.1"})))

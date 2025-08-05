@@ -7,8 +7,8 @@
    [roundcodehouse-lang.core :as scheme]))
 
 (rf/reg-fx :call
-  (fn [[f & args]]
-    (apply f args)))
+           (fn [[f & args]]
+             (apply f args)))
 
 (rf/reg-sub :get
   (fn [db [_ k default]]
@@ -40,11 +40,4 @@
 
 (defn init []
   (dev-setup)
-  (mount-root)
-  
-  ;; Initialize Scheme interpreter
-  (println "Scheme interpreter loaded!")
-  (set! js/window.schemeEval scheme/scheme-eval-string)
-  (set! js/window.schemeRepl scheme/scheme-repl)
-  (js/console.log "Use schemeEval(\"(+ 1 2)\") to evaluate Scheme expressions")
-  (js/console.log "Use schemeRepl() to start the REPL"))
+  (mount-root))
