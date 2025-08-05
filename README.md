@@ -1,52 +1,9 @@
-# roundcodehouse
+# Opinionated, messy fullstack clojure template
 
-A [re-frame](https://github.com/day8/re-frame) application designed to ... well, that part is up to
-you.
+An opinionated template for fullstack clojure with re-frame on the frontend and http-kit/reitit on the backend.
+A bit of a quirky shadow-cljs setup with deps.edn for dependencies, and dev server disabled in favor of using our real backend in development.
 
-## Getting Started
-
-### Project Overview
-
-* Architecture:
-[Single Page Application (SPA)](https://en.wikipedia.org/wiki/Single-page_application)
-* Languages
-  - Front end is [ClojureScript](https://clojurescript.org/) with ([re-frame](https://github.com/day8/re-frame))
-* Dependencies
-  - UI framework: [re-frame](https://github.com/day8/re-frame)
-  ([docs](https://github.com/day8/re-frame/blob/master/docs/README.md),
-  [FAQs](https://github.com/day8/re-frame/blob/master/docs/FAQs/README.md)) ->
-  [Reagent](https://github.com/reagent-project/reagent) ->
-  [React](https://github.com/facebook/react)
-* Build tools
-  - CLJS compilation, dependency management, REPL, & hot reload: [`shadow-cljs`](https://github.com/thheller/shadow-cljs)
-* Development tools
-  - Debugging: [CLJS DevTools](https://github.com/binaryage/cljs-devtools)
-
-#### Directory structure
-
-* [`/`](/../../): project config files
-* [`dev/`](dev/): source files compiled only with the [dev](#running-the-app) profile
-  - [`user.cljs`](dev/cljs/user.cljs): symbols for use during development in the
-[ClojureScript REPL](#connecting-to-the-browser-repl-from-a-terminal)
-* [`resources/public/`](resources/public/): SPA root directory;
-[dev](#running-the-app) / [prod](#production) profile depends on the most recent build
-  - [`index.html`](resources/public/index.html): SPA home page
-    - Dynamic SPA content rendered in the following `div`:
-        ```html
-        <div id="app"></div>
-        ```
-    - Customizable; add headers, footers, links to other scripts and styles, etc.
-  - Generated directories and files
-    - Created on build with either the [dev](#running-the-app) or [prod](#production) profile
-    - `js/compiled/`: compiled CLJS (`shadow-cljs`)
-      - Not tracked in source control; see [`.gitignore`](.gitignore)
-* [`src/roundcodehouse/`](src/roundcodehouse/): SPA source files (ClojureScript,
-[re-frame](https://github.com/Day8/re-frame))
-  - [`core.cljs`](src/roundcodehouse/core.cljs): contains the SPA entry point, `init`
-* [`.github/workflows/`](.github/workflows/): contains the
-[github actions](https://github.com/features/actions) pipelines.
-  - [`test.yaml`](.github/workflows/test.yaml): Pipeline for testing.
-
+## Development
 
 ### Editor/IDE
 
@@ -91,7 +48,6 @@ Unfortunately, Firefox does not yet support custom formatters in their devtools.
 the enhancement request in their bug tracker:
 [1262914 - Add support for Custom Formatters in devtools](https://bugzilla.mozilla.org/show_bug.cgi?id=1262914).
 
-## Development
 
 ### Running the App
 
