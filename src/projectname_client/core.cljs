@@ -3,8 +3,7 @@
    [reagent.dom :as rdom]
    [re-frame.core :as rf]
    [projectname-client.views :as views]
-   [projectname-client.config :as config]
-   [projectname-lang.core :as scheme]))
+   [projectname-client.config :as config]))
 
 (rf/reg-fx :call
            (fn [[f & args]]
