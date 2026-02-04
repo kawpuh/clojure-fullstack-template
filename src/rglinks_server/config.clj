@@ -1,4 +1,4 @@
-(ns projectname-server.config)
+(ns rglinks-server.config)
 
 (def middleware-diff-logging false)
 

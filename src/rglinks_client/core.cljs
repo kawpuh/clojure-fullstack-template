@@ -1,9 +1,9 @@
-(ns projectname-client.core
+(ns rglinks-client.core
   (:require
    [reagent.dom :as rdom]
    [re-frame.core :as rf]
-   [projectname-client.views :as views]
-   [projectname-client.config :as config]))
+   [rglinks-client.views :as views]
+   [rglinks-client.config :as config]))
 
 (rf/reg-fx :call
            (fn [[f & args]]

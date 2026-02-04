@@ -1,9 +1,9 @@
-(ns projectname-server.core
+(ns rglinks-server.core
   (:require
    [clojure.tools.cli :as cli]
    [org.httpkit.server :as http]
-   [projectname-server.config :as config]
-   [projectname-server.router :as router]
+   [rglinks-server.config :as config]
+   [rglinks-server.router :as router]
    [taoensso.telemere :as t]))
 
 (defn parse-port [port-arg]

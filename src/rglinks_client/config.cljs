@@ -1,4 +1,4 @@
-(ns projectname-client.config)
+(ns rglinks-client.config)
 
 (def debug?
   ^boolean goog.DEBUG)
