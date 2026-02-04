@@ -3,7 +3,7 @@
 An opinionated template for fullstack clojure with re-frame on the frontend and http-kit/reitit on the backend.
 A bit of a quirky shadow-cljs setup with deps.edn for dependencies, and dev server disabled in favor of using our real backend in development.
 
-Try `fd -t f -x sed -i 's/rglinks/NEWNAME/g' {}` to setup the project with your desired name.
+Try `fd -t f -x sed -i 's/projectname/NEWNAME/g' {}` to setup the project with your desired name.
 
 ## Development
 
@@ -17,7 +17,7 @@ Use your preferred editor or IDE that supports Clojure/ClojureScript development
 1. Install [JDK 8 or later](https://openjdk.java.net/install/) (Java Development Kit)
 2. Install [Node.js](https://nodejs.org/) (JavaScript runtime environment) which should include
    [NPM](https://docs.npmjs.com/cli/npm) or if your Node.js installation does not include NPM also install it.
-5. Clone this repo and open a terminal in the `rglinks` project root directory
+5. Clone this repo and open a terminal in the `projectname` project root directory
 
 ### Browser Setup
 
@@ -124,14 +124,14 @@ npx shadow-cljs <action> app
 ```
 ### Debug Logging
 
-The `debug?` variable in [`config.cljs`](src/cljs/rglinks/config.cljs) defaults to `true` in
+The `debug?` variable in [`config.cljs`](src/cljs/projectname/config.cljs) defaults to `true` in
 [`dev`](#running-the-app) builds, and `false` in [`prod`](#production) builds.
 
 Use `debug?` for logging or other tasks that should run only on `dev` builds:
 
 ```clj
-(ns rglinks.example
-  (:require [rglinks.config :as config])
+(ns projectname.example
+  (:require [projectname.config :as config])
 
 (when config/debug?
   (println "This message will appear in the browser console only on dev builds."))
